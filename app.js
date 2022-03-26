@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors')
 const app = express();
+const bodyParser = require('body-parser');
 const mongoConnect = require('./utils/database').mongoConnect;
 
 const responseMessage = require("./functions/responseMessage")
@@ -11,6 +12,10 @@ const loginRoutes = require('./routes/login');
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json())
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(registerRoutes);
