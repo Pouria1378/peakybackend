@@ -9,7 +9,7 @@ exports.register = async (req, res, next) => {
         const { userName, password } = req.body
 
         if (!(userName && password)) {
-            res.status(400).send("All input is required")
+            return res.status(400).send("All input is required")
         }
 
         const oldUser = await User.findOne({ userName })

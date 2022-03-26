@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors')
 const app = express();
 const mongoConnect = require('./utils/database').mongoConnect;
 
@@ -8,6 +9,7 @@ const responseMessage = require("./functions/responseMessage")
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
