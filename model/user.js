@@ -2,8 +2,8 @@ const getDB = require('../utils/database').getDB;
 const mongodb = require("mongodb")
 
 class User {
-    constructor(userName, password) {
-        this.userName = userName;
+    constructor(username, password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -14,19 +14,19 @@ class User {
             .collection('users')
             .insertOne(this)
             .then(result => {
-                console.log(result)
+                console.log("result", result)
             })
             .catch(err => {
                 console.log(err)
             })
     }
 
-    static findOne({ userName }) {
+    static findOne({ username }) {
         const db = getDB()
 
         return db
             .collection('users')
-            .findOne({ userName: userName })
+            .findOne({ username: username })
             .then(user => {
                 return user
             })

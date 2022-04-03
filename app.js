@@ -24,7 +24,7 @@ app.use(loginRoutes);
 app.use((req, res, next) => {
     res
         .status(404)
-        .json(responseMessage(404, true, "Page not found"));
+        .json(responseMessage(404));
 })
 
 

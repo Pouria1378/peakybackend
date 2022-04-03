@@ -6,29 +6,27 @@ const responseMessage = require("../functions/responseMessage")
 
 exports.register = async (req, res, next) => {
     try {
-        const { userName, password } = req.body
+        const { username, password } = req.body
 
-        if (!(userName && password)) {
+        if (!(username && password)) {
             return res.status(400).send("All input is required")
         }
 
-        const oldUser = await User.findOne({ userName })
-
+        const oldUser = await User.findOne({ username })
 
         if (oldUser) {
             return res
-                .status(409)
-                .json(responseMessage(409, true, "user already exists"))
+                .json(responseMessage(409))
         }
 
         const encryptedPassword = await bcrypt.hash(password, 10)
 
-        const user = new User(userName, encryptedPassword)
+        const user = new User(username, encryptedPassword)
 
         const token = jwt.sign(
             {
                 userId: new mongodb.ObjectId(user._id),
-                userName: userName
+                username: username
             },
             "secret",
             {
@@ -40,7 +38,8 @@ exports.register = async (req, res, next) => {
 
         user.token = token
 
-        res.status(201).json(user)
+        res
+            .json({ user, ...responseMessage(201) })
 
     } catch (err) {
         console.log(err)
@@ -49,19 +48,20 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const { userName, password } = req.body
+        const { username, password } = req.body
 
-        if (!(userName && password)) {
+        if (!(username && password)) {
             res.status(400).send("All input is required")
+
         }
 
-        const user = await User.findOne({ userName })
+        const user = await User.findOne({ username })
 
         if (user && (await bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
                 {
                     user_id: new mongodb.ObjectId(user._id),
-                    userName
+                    username
                 },
                 "secret",
                 {
@@ -78,7 +78,7 @@ exports.login = async (req, res, next) => {
 
         res
             .status(400)
-            .json(responseMessage(400, true, "Invalid credentials"))
+            .json(responseMessage(400))
 
     } catch (err) {
         console.log(err);
