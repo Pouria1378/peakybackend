@@ -39,7 +39,7 @@ exports.register = async (req, res, next) => {
         user.token = token
 
         res
-            .json({ user, ...responseMessage(201) })
+            .json(responseMessage(201))
 
     } catch (err) {
         console.log(err)
@@ -52,7 +52,7 @@ exports.login = async (req, res, next) => {
 
         if (!(username && password)) {
             res.status(400).send("All input is required")
-
+            return
         }
 
         const user = await User.findOne({ username })
@@ -72,12 +72,12 @@ exports.login = async (req, res, next) => {
             user.token = token
 
             res
-                .status(200)
-                .json(user)
+                .json({ token, ...responseMessage(200) })
+
+            return
         }
 
         res
-            .status(400)
             .json(responseMessage(400))
 
     } catch (err) {
