@@ -1,46 +1,48 @@
-const User = require('../model/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const mongodb = require("mongodb")
 const responseMessage = require("../functions/responseMessage")
+const EventType = require('../model/eventType')
 
-exports.register = async (req, res, next) => {
+exports.createEventType = async (req, res, next) => {
     try {
-        const { username, password } = req.body
+        const {
+            title,
+            duration,
+            type,
+            color,
+            description,
+            link,
+            freeTimes
+        } = req.body
 
-        if (!(username && password)) {
-            return res
-                .send(responseMessage(400))
-        }
-
-        const oldUser = await User.findOne({ username })
-
-        if (oldUser) {
+        const duplicatedLink = await EventType.findEventLink({ link })
+        if (duplicatedLink) {
             return res
                 .json(responseMessage(409))
         }
 
-        const encryptedPassword = await bcrypt.hash(password, 10)
+        if (!title || !duration || !type || !description || !link || !freeTimes) {
+            res
+                .json(responseMessage(400))
+            return
+        }
 
-        const user = new User(username, encryptedPassword)
+        const eventType = new EventType(
+            req.user.username,
+            title,
+            duration,
+            type,
+            color,
+            description,
+            link,
+            freeTimes
+        )
 
-        const token = jwt.sign(
-            {
-                userId: new mongodb.ObjectId(user._id),
-                username: username
-            },
-            "secret",
-            {
-                expiresIn: "48h",
-            }
-        );
-
-        user.save();
-
-        user.token = token
+        eventType.save()
 
         res
-            .json(responseMessage(201))
+            .json(responseMessage(200))
 
     } catch (err) {
         console.log(err)

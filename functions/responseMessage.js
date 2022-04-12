@@ -10,6 +10,11 @@ const responseMessage = (statusCode) => {
             success: true,
             message: "User Successfully created",
         },
+        400: {
+            statusCode: 400,
+            success: true,
+            message: "Invalid credentials",
+        },
         404: {
             statusCode: 404,
             success: false,
@@ -18,13 +23,9 @@ const responseMessage = (statusCode) => {
         409: {
             statusCode: 409,
             success: true,
-            message: "user already exists",
+            message: "already exists",
         },
-        400: {
-            statusCode: 400,
-            success: true,
-            message: "Invalid credentials",
-        },
+
     }
 
     return messages[statusCode] ||
