@@ -49,6 +49,16 @@ class EventType {
                 console.error(err);
             })
     }
+
+    static findAllEventTypes({ username }) {
+        const db = getDB()
+
+        return db
+            .collection('eventType')
+            .find({ username: username })
+            .toArray()
+
+    }
 }
 
 module.exports = EventType;
