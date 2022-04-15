@@ -9,8 +9,7 @@ const responseMessage = require("./functions/responseMessage")
 
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
-const createEventType = require('./routes/createEventType');
-const getAllEventTypes = require('./routes/getAllEventTypes');
+const eventTypeRoutes = require('./routes/eventTypeRoutes');
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
@@ -22,8 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(registerRoutes);
 app.use(loginRoutes);
-app.use(createEventType);
-app.use(getAllEventTypes);
+app.use(eventTypeRoutes);
 
 app.use((req, res, next) => {
     res

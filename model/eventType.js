@@ -1,5 +1,5 @@
 const getDB = require('../utils/database').getDB;
-const mongodb = require("mongodb")
+const { ObjectID } = require('bson');
 
 class EventType {
     constructor(
@@ -57,6 +57,15 @@ class EventType {
             .collection('eventType')
             .find({ username: username })
             .toArray()
+
+    }
+
+    static deleteEventType(id) {
+        const db = getDB()
+
+        return db
+            .collection('eventType')
+            .deleteOne({ "_id": ObjectID(id) })
 
     }
 }

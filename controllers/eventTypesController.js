@@ -22,7 +22,7 @@ exports.createEventType = async (req, res, next) => {
                 .json(responseMessage(409))
         }
 
-        if (!title || !duration || !type || !description || !link || !freeTimes) {
+        if (!title || !duration || !type || !link || !freeTimes) {
             res
                 .json(responseMessage(400))
             return
@@ -40,6 +40,42 @@ exports.createEventType = async (req, res, next) => {
         )
 
         eventType.save()
+
+        res
+            .json(responseMessage(200))
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.getAllEventTypes = async (req, res, next) => {
+    try {
+        const eventTypes = await EventType.findAllEventTypes(req.user)
+        eventTypes.reverse()
+
+        res
+            .json({
+                ...responseMessage(200),
+                eventTypes
+            })
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.deleteEventType = async (req, res, next) => {
+    try {
+        const { id } = req.body
+
+        if (!id) {
+            res
+                .json(responseMessage(400))
+            return
+        }
+
+        EventType.deleteEventType(id)
 
         res
             .json(responseMessage(200))
