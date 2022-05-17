@@ -20,6 +20,7 @@ class EventType {
         this.description = description;
         this.link = link;
         this.freeTimes = freeTimes;
+        this.status = true;
     }
 
     save() {
@@ -66,6 +67,26 @@ class EventType {
         return db
             .collection('eventType')
             .deleteOne({ "_id": ObjectID(id) })
+
+    }
+
+    static editEventType(eventType) {
+        const db = getDB()
+
+        return db
+            .collection('eventType')
+            .updateOne({ "_id": ObjectID(eventType._id) }, {
+                $set: {
+                    title: eventType.title,
+                    duration: eventType.duration,
+                    type: eventType.type,
+                    color: eventType.color,
+                    description: eventType.description,
+                    link: eventType.link,
+                    freeTimes: eventType.freeTimes,
+                    status: eventType.status
+                }
+            })
 
     }
 }

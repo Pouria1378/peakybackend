@@ -15,6 +15,16 @@ const responseMessage = (statusCode) => {
             success: true,
             message: "Invalid credentials",
         },
+        401: {
+            statusCode: 401,
+            success: true,
+            message: "invalid Token!",
+        },
+        403: {
+            statusCode: 403,
+            success: true,
+            message: "A token is required for authentication",
+        },
         404: {
             statusCode: 404,
             success: false,

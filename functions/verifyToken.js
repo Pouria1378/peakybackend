@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
+const responseMessage = require("./responseMessage");
 
-// const config = process.env;
 
 const verifyToken = (req, res, next) => {
     const dateNow = new Date();
@@ -8,7 +8,8 @@ const verifyToken = (req, res, next) => {
         req.body.token || req.query.token || req.headers["authorization"];
 
     if (!token) {
-        return res.status(403).send("A token is required for authentication");
+        return res
+            .send(responseMessage(403));
     }
 
     try {
@@ -18,7 +19,8 @@ const verifyToken = (req, res, next) => {
         }
         req.user = decoded;
     } catch (err) {
-        return res.status(401).send("Invalid Token");
+        return res
+            .send(responseMessage(401));
     }
 
     return next();

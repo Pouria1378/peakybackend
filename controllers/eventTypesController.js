@@ -84,3 +84,18 @@ exports.deleteEventType = async (req, res, next) => {
         console.log(err)
     }
 }
+
+exports.editEventType = async (req, res, next) => {
+    try {
+        const eventTypes = await EventType.editEventType(req.body)
+
+        res
+            .json({
+                ...responseMessage(200),
+                eventTypes
+            })
+
+    } catch (err) {
+        console.log(err)
+    }
+}

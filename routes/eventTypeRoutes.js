@@ -11,4 +11,6 @@ router.get("/getAllEventTypes", auth, eventTypesController.getAllEventTypes);
 
 router.delete("/deleteEventType", auth, eventTypesController.deleteEventType);
 
+router.put("/editEventType", auth, eventTypesController.editEventType);
+
 module.exports = router;
