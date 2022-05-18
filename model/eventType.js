@@ -61,6 +61,15 @@ class EventType {
 
     }
 
+    static findOneEvent(link) {
+        const db = getDB()
+
+        return db
+            .collection('eventType')
+            .findOne({ link })
+
+    }
+
     static deleteEventType(id) {
         const db = getDB()
 

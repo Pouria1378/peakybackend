@@ -35,6 +35,11 @@ const responseMessage = (statusCode) => {
             success: true,
             message: "already exists",
         },
+        410: {
+            statusCode: 410,
+            success: true,
+            message: "colul not find event",
+        },
 
     }
 

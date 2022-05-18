@@ -35,7 +35,7 @@ exports.createEventType = async (req, res, next) => {
             type,
             color,
             description,
-            link,
+            link.toLowerCase(),
             freeTimes
         )
 
