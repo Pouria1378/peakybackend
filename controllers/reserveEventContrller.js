@@ -4,8 +4,9 @@ const EventType = require('../model/eventType')
 exports.getReserveEventData = async (req, res, next) => {
     try {
 
-        const data = await EventType.findOneEvent(req.body.link.toLowerCase())
+        const data = await EventType.findOneEvent(req.body)
 
+        console.log("req.body", req.body);
         if (Object.keys(data || {}).length === 0) {
             return res
                 .json(responseMessage(410))

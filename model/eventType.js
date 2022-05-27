@@ -61,12 +61,12 @@ class EventType {
 
     }
 
-    static findOneEvent(link) {
+    static findOneEvent({ link, username }) {
         const db = getDB()
 
         return db
             .collection('eventType')
-            .findOne({ link })
+            .findOne({ link, username })
 
     }
 
