@@ -7,16 +7,17 @@ class EventType {
         title,
         duration,
         type,
-        color,
+        className,
         description,
         link,
         freeTimes
     ) {
+        console.log("freeTimes 2", freeTimes);
         this.username = username;
         this.title = title;
         this.duration = duration;
         this.type = type;
-        this.color = color;
+        this.className = className;
         this.description = description;
         this.link = link;
         this.freeTimes = freeTimes;
@@ -56,7 +57,7 @@ class EventType {
 
         return db
             .collection('eventType')
-            .find({ username: username })
+            .find({ username })
             .toArray()
 
     }
@@ -89,7 +90,7 @@ class EventType {
                     title: eventType.title,
                     duration: eventType.duration,
                     type: eventType.type,
-                    color: eventType.color,
+                    className: eventType.className,
                     description: eventType.description,
                     link: eventType.link,
                     freeTimes: eventType.freeTimes,
