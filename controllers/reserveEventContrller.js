@@ -1,6 +1,6 @@
 const responseMessage = require("../functions/responseMessage")
 const EventType = require('../model/eventType')
-const ReservedEvent = require('../model/reservedEvent')
+const ReserveEvent = require('../model/ReserveEvent')
 
 exports.getReserveEventData = async (req, res, next) => {
     try {
@@ -29,23 +29,40 @@ exports.getReserveEventData = async (req, res, next) => {
 exports.addReserveEvent = async (req, res, next) => {
     try {
         const {
-            username,
-            userEmail,
             date,
-            hour
+            hour,
+            userEmail,
+            username,
+            link
         } = req.body
 
-        if (!username || !userEmail || !hour || !date) {
+        const eventDataByLink = await EventType.findEventLink({ link })
+
+        const { username: adminUsername, title, duration, type } = eventDataByLink
+
+        if (
+            !date ||
+            !hour ||
+            !link ||
+            !userEmail ||
+            !username
+        ) {
             res
                 .json(responseMessage(400))
             return
         }
 
-        const reservedEvent = new ReservedEvent(
-            username,
-            userEmail,
+
+
+        const reservedEvent = new ReserveEvent(
+            adminUsername,
             date,
-            hour
+            hour,
+            userEmail,
+            username,
+            title,
+            duration,
+            type
         )
 
         reservedEvent.save()
