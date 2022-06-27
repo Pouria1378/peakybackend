@@ -12,6 +12,7 @@ class ReserveEvent {
         title,
         duration,
         type,
+        link
     ) {
         this.adminUsername = adminUsername
         this.date = date
@@ -21,11 +22,14 @@ class ReserveEvent {
         this.title = title
         this.duration = duration
         this.type = type
+        this.link = link
     }
 
 
     save() {
         const db = getDB()
+
+        EventType.deleteReservedHourFromFreeTime(this.adminUsername, this.link, this.date, this.hour, this.duration)
 
         return db
             .collection('reservedEvent')

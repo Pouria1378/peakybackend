@@ -38,18 +38,13 @@ exports.createEventType = async (req, res, next) => {
             thursday: [],
             friday: [],
         }
-        console.log("parsedfreeTimes", parsedfreeTimes);
         for (let day in parsedfreeTimes) {
             for (let freeTime of parsedfreeTimes[day]) {
                 const fromHour = []
-                console.log("freeTime", freeTime);
                 let from = freeTime.from.split(":")
                 let to = freeTime.to.split(":")
-                console.log("from", from);
-                console.log("to", to);
                 while (+from[0] <= +to[0]) {
                     fromHour.push(from.join(":"))
-                    console.log("fromHour", fromHour);
                     if (+from[0] === +to[0] && +from[1] === +to[1]) break
                     if (+from[1] === 0) from[1] = "30"
                     else {

@@ -40,6 +40,9 @@ exports.addReserveEvent = async (req, res, next) => {
 
         const { username: adminUsername, title, duration, type } = eventDataByLink
 
+        console.log("eventDataByLink", eventDataByLink);
+        console.log("adminUsername", adminUsername);
+
         if (
             !date ||
             !hour ||
@@ -62,7 +65,8 @@ exports.addReserveEvent = async (req, res, next) => {
             username,
             title,
             duration,
-            type
+            type,
+            link
         )
 
         reservedEvent.save()

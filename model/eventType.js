@@ -12,7 +12,6 @@ class EventType {
         link,
         freeTimes
     ) {
-        console.log("freeTimes 2", freeTimes);
         this.username = username;
         this.title = title;
         this.duration = duration;
@@ -95,6 +94,18 @@ class EventType {
                     link: eventType.link,
                     freeTimes: eventType.freeTimes,
                     status: eventType.status
+                }
+            })
+    }
+
+    static deleteReservedHourFromFreeTime(username, link, date, hour, duration) {
+        const db = getDB()
+
+        db
+            .collection('eventType')
+            .updateOne({ "link": link, "username": username }, {
+                $set: {
+                    freeTimes: freeTimes
                 }
             })
 
