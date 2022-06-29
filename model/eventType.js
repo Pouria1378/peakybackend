@@ -98,12 +98,25 @@ class EventType {
             })
     }
 
-    static deleteReservedHourFromFreeTime(username, link, date, hour, duration) {
+    static deleteReservedHourFromFreeTime(
+        username,
+        link,
+        weekDayName,
+        hour,
+        duration,
+        freeTimes,
+    ) {
         const db = getDB()
+
+        const indexOfReservedHour = freeTimes[weekDayName].findIndex(h => h === hour)
+
+        const convertedDuration = +duration.split(":")[0]
+
+        freeTimes[weekDayName].splice(indexOfReservedHour, convertedDuration)
 
         db
             .collection('eventType')
-            .updateOne({ "link": link, "username": username }, {
+            .updateOne({ link, username }, {
                 $set: {
                     freeTimes: freeTimes
                 }

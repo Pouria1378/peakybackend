@@ -12,7 +12,9 @@ class ReserveEvent {
         title,
         duration,
         type,
-        link
+        link,
+        freeTimes,
+        weekDayName
     ) {
         this.adminUsername = adminUsername
         this.date = date
@@ -23,13 +25,22 @@ class ReserveEvent {
         this.duration = duration
         this.type = type
         this.link = link
+        this.freeTimes = freeTimes
+        this.weekDayName = weekDayName
     }
 
 
     save() {
         const db = getDB()
 
-        EventType.deleteReservedHourFromFreeTime(this.adminUsername, this.link, this.date, this.hour, this.duration)
+        EventType.deleteReservedHourFromFreeTime(
+            this.adminUsername,
+            this.link,
+            this.weekDayName,
+            this.hour,
+            this.duration,
+            this.freeTimes,
+        )
 
         return db
             .collection('reservedEvent')

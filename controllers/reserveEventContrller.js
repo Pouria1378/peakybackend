@@ -33,15 +33,13 @@ exports.addReserveEvent = async (req, res, next) => {
             hour,
             userEmail,
             username,
-            link
+            link,
+            weekDayName
         } = req.body
 
         const eventDataByLink = await EventType.findEventLink({ link })
 
-        const { username: adminUsername, title, duration, type } = eventDataByLink
-
-        console.log("eventDataByLink", eventDataByLink);
-        console.log("adminUsername", adminUsername);
+        const { username: adminUsername, title, duration, type, freeTimes } = eventDataByLink
 
         if (
             !date ||
@@ -66,7 +64,9 @@ exports.addReserveEvent = async (req, res, next) => {
             title,
             duration,
             type,
-            link
+            link,
+            freeTimes,
+            weekDayName
         )
 
         reservedEvent.save()

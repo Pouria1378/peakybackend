@@ -30,13 +30,13 @@ exports.createEventType = async (req, res, next) => {
 
         const parsedfreeTimes = JSON.parse(freeTimes)
         const convertedFreeTimes = {
-            saturday: [],
-            sunday: [],
-            monday: [],
-            tuesday: [],
-            wednesday: [],
-            thursday: [],
-            friday: [],
+            sat: [],
+            sun: [],
+            mon: [],
+            tue: [],
+            wed: [],
+            thu: [],
+            fri: [],
         }
         for (let day in parsedfreeTimes) {
             for (let freeTime of parsedfreeTimes[day]) {
@@ -45,12 +45,9 @@ exports.createEventType = async (req, res, next) => {
                 let to = freeTime.to.split(":")
                 while (+from[0] <= +to[0]) {
                     fromHour.push(from.join(":"))
-                    if (+from[0] === +to[0] && +from[1] === +to[1]) break
-                    if (+from[1] === 0) from[1] = "30"
-                    else {
-                        from[0] = +from[0] + 1
-                        from[1] = "00"
-                    }
+                    if (+from[0] === +to[0]) break
+
+                    from[0] = +from[0] + 1
                 }
                 convertedFreeTimes[day] = [...convertedFreeTimes[day], ...fromHour]
             }
