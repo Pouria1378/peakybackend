@@ -79,3 +79,23 @@ exports.addReserveEvent = async (req, res, next) => {
         console.log(err)
     }
 }
+
+exports.getReservedEvents = async (req, res, next) => {
+    try {
+        const data = await ReserveEvent.getReservedEvents(req.user)
+
+        console.log("datadata", data);
+        if (data.length) {
+            return res
+                .json({ data, ...responseMessage(200) })
+        }
+
+        res
+            .json(responseMessage(411))
+        // console.log("data", data);
+
+
+    } catch (err) {
+        console.log(err)
+    }
+}

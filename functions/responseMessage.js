@@ -40,6 +40,11 @@ const responseMessage = (statusCode) => {
             success: true,
             message: "colul not find event",
         },
+        411: {
+            statusCode: 411,
+            success: true,
+            message: "reserved events not found",
+        },
 
     }
 

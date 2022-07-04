@@ -53,6 +53,16 @@ class ReserveEvent {
             })
     }
 
+    static getReservedEvents({ username }) {
+        console.log("username", username);
+        const db = getDB()
+
+        return db
+            .collection('reservedEvent')
+            .find({ "adminUsername": username })
+            .toArray()
+    }
+
 }
 
 module.exports = ReserveEvent;
