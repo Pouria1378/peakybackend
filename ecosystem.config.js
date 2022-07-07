@@ -9,17 +9,17 @@ module.exports = {
     },
 
     // cron jobs
-    {
-      "name": "cronJobs",
-      "script": "./cron.js",
-      "instances": 1
-    },
+    // {
+    //   "name": "cronJobs",
+    //   "script": "./cron.js",
+    //   "instances": 1
+    // },
 
-    // workers
-    {
-      "name": "smsWorker",
-      "script": "./workers/smsWorker.js",
-      "instances": 1
-    }
+    // // workers
+    // {
+    //   "name": "smsWorker",
+    //   "script": "./workers/smsWorker.js",
+    //   "instances": 1
+    // }
   ]
 };
