@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node ./node_modules/.bin/pm2 start ecosystem.config.js && node ./node_modules/.bin/pm2 logs"
   },
   "author": "pouria",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pm2": "^5.2.0"
   }
 }

@@ -1,6 +1,6 @@
 const responseMessage = require("../functions/responseMessage")
 const EventType = require('../model/eventType')
-const ReserveEvent = require('../model/ReserveEvent')
+const ReserveEvent = require('../model/reserveEvent')
 
 exports.getReserveEventData = async (req, res, next) => {
     try {
