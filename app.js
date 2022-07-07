@@ -14,9 +14,7 @@ const reserveEvent = require('./routes/reserveEvent');
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
-console.log('====================================');
-console.log("????");
-console.log('====================================');
+
 // parse application/json
 app.use(bodyParser.json())
 

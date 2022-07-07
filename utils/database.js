@@ -1,6 +1,7 @@
 const { MongoClient } = require("mongodb")
 
-const uri = "mongodb://127.0.0.1:27017/peaky"
+// const uri = "mongodb://127.0.0.1:27017/peaky"
+const uri = process.env.MONGODB_URI
 
 let db
 
