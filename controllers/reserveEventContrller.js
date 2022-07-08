@@ -7,7 +7,6 @@ exports.getReserveEventData = async (req, res, next) => {
 
         const data = await EventType.findOneEvent(req.body)
 
-
         if (Object.keys(data || {}).length === 0) {
             return res
                 .json(responseMessage(410))
