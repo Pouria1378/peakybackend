@@ -92,7 +92,7 @@ class EventType {
                     className: eventType.className,
                     description: eventType.description,
                     link: eventType.link,
-                    freeTimes: eventType.freeTimes,
+                    // freeTimes: eventType.freeTimes,
                     status: eventType.status
                 }
             })
