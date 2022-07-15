@@ -1,6 +1,3 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const mongodb = require("mongodb")
 const responseMessage = require("../functions/responseMessage")
 const EventType = require('../model/eventType')
 
@@ -16,16 +13,15 @@ exports.createEventType = async (req, res, next) => {
             freeTimes
         } = req.body
 
-        const duplicatedLink = await EventType.findEventLink({ link })
+        const duplicatedLink = await EventType.findEventLink({ link, username: req.user.username })
         if (duplicatedLink) {
             return res
                 .json(responseMessage(409))
         }
 
         if (!title || !duration || !type || !link || !freeTimes) {
-            res
+            return res
                 .json(responseMessage(400))
-            return
         }
 
         const parsedfreeTimes = JSON.parse(freeTimes)
@@ -79,6 +75,11 @@ exports.getAllEventTypes = async (req, res, next) => {
     try {
         const eventTypes = await EventType.findAllEventTypes(req.user)
         eventTypes.reverse()
+
+        if (!eventTypes.length && eventTypes.length !== 0) {
+            return res
+                .json(responseMessage(412))
+        }
 
         res
             .json({

@@ -45,6 +45,16 @@ const responseMessage = (statusCode) => {
             success: true,
             message: "reserved events not found",
         },
+        411: {
+            statusCode: 411,
+            success: true,
+            message: "reserved events not found",
+        },
+        412: {
+            statusCode: 412,
+            success: true,
+            message: "could not file event types",
+        },
 
     }
 

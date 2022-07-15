@@ -5,16 +5,16 @@ const ReserveEvent = require('../model/reserveEvent')
 exports.getReserveEventData = async (req, res, next) => {
     try {
 
-        const data = await EventType.findOneEvent(req.body)
+        const eventData = await EventType.findOneEvent(req.body)
 
-        if (Object.keys(data || {}).length === 0) {
+        if (Object.keys(eventData || {}).length === 0) {
             return res
                 .json(responseMessage(410))
         } else {
             res
                 .json({
                     ...responseMessage(200),
-                    data
+                    data: eventData
                 })
         }
 
@@ -33,12 +33,13 @@ exports.addReserveEvent = async (req, res, next) => {
             userEmail,
             username,
             link,
-            weekDayName
+            weekDayName,
+            adminUsername
         } = req.body
 
-        const eventDataByLink = await EventType.findEventLink({ link })
+        const eventDataByLink = await EventType.findEventLink({ link, username: adminUsername })
 
-        const { username: adminUsername, title, duration, type, freeTimes } = eventDataByLink
+        const { title, duration, type, freeTimes } = eventDataByLink
 
         if (
             !date ||
