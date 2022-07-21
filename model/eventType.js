@@ -37,12 +37,12 @@ class EventType {
             })
     }
 
-    static findEventLink({ link }) {
+    static findEventLink({ link, username }) {
         const db = getDB()
 
         return db
             .collection('eventType')
-            .findOne({ link: link })
+            .findOne({ link, username })
             .then(link => {
                 return link
             })
@@ -92,7 +92,6 @@ class EventType {
                     className: eventType.className,
                     description: eventType.description,
                     link: eventType.link,
-                    freeTimes: eventType.freeTimes,
                     status: eventType.status
                 }
             })

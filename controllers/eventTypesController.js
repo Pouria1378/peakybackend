@@ -1,6 +1,3 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const mongodb = require("mongodb")
 const responseMessage = require("../functions/responseMessage")
 const EventType = require('../model/eventType')
 
@@ -16,16 +13,16 @@ exports.createEventType = async (req, res, next) => {
             freeTimes
         } = req.body
 
-        const duplicatedLink = await EventType.findEventLink({ link })
+        const duplicatedLink = await EventType.findEventLink({ link, username: req.user.username })
+
         if (duplicatedLink) {
             return res
-                .json(responseMessage(409))
+                .json(responseMessage(415))
         }
 
         if (!title || !duration || !type || !link || !freeTimes) {
-            res
-                .json(responseMessage(400))
-            return
+            return res
+                .json(responseMessage(414))
         }
 
         const parsedfreeTimes = JSON.parse(freeTimes)
@@ -68,7 +65,7 @@ exports.createEventType = async (req, res, next) => {
         eventType.save()
 
         res
-            .json(responseMessage(200))
+            .json(responseMessage(416))
 
     } catch (err) {
         console.log(err)
@@ -80,9 +77,14 @@ exports.getAllEventTypes = async (req, res, next) => {
         const eventTypes = await EventType.findAllEventTypes(req.user)
         eventTypes.reverse()
 
+        if (!eventTypes.length && eventTypes.length !== 0) {
+            return res
+                .json(responseMessage(412))
+        }
+
         res
             .json({
-                ...responseMessage(200),
+                ...responseMessage(420),
                 eventTypes
             })
 
@@ -97,14 +99,14 @@ exports.deleteEventType = async (req, res, next) => {
 
         if (!id) {
             res
-                .json(responseMessage(400))
+                .json(responseMessage(419))
             return
         }
 
         EventType.deleteEventType(id)
 
         res
-            .json(responseMessage(200))
+            .json(responseMessage(418))
 
     } catch (err) {
         console.log(err)
@@ -117,7 +119,7 @@ exports.editEventType = async (req, res, next) => {
 
         res
             .json({
-                ...responseMessage(200),
+                ...responseMessage(417),
                 eventTypes
             })
 

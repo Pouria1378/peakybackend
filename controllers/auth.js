@@ -10,7 +10,7 @@ exports.register = async (req, res, next) => {
 
         if (!(username && password)) {
             return res
-                .send(responseMessage(400))
+                .send(responseMessage(414))
         }
 
         const oldUser = await User.findOne({ username })
@@ -52,11 +52,26 @@ exports.login = async (req, res, next) => {
         const { username, password } = req.body
 
         if (!(username && password)) {
-            res.status(400).send("All input is required")
+            res
+                .json(responseMessage(414))
             return
         }
 
         const user = await User.findOne({ username })
+
+        if (!user) {
+            res
+                .json(responseMessage(400))
+
+            return
+        }
+
+        if (!await bcrypt.compare(password, user.password)) {
+            res
+                .json(responseMessage(413))
+
+            return
+        }
 
         if (user && (await bcrypt.compare(password, user.password))) {
             const token = jwt.sign(

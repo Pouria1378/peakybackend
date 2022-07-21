@@ -10,7 +10,7 @@ const responseMessage = require("./functions/responseMessage")
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const eventTypeRoutes = require('./routes/eventTypeRoutes');
-const reserveEvent = require('./routes/reserveEvent');
+const reserveEventRoutes = require('./routes/reserveEvent');
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(registerRoutes);
 app.use(loginRoutes);
 app.use(eventTypeRoutes);
-app.use(reserveEvent);
+app.use(reserveEventRoutes);
 
 app.use((req, res, next) => {
     res
@@ -34,6 +34,6 @@ app.use((req, res, next) => {
 
 mongoConnect((client) => {
     app.listen(process.env.PORT || 8000, () => {
-        console.log(`Server running on port ${process.env.PORT}`);
+        console.log(`Server running on port ${process.env.PORT || 8000}`);
     });
 })

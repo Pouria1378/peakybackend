@@ -1,5 +1,4 @@
 const getDB = require('../utils/database').getDB;
-const { ObjectID } = require('bson');
 const EventType = require('./eventType')
 
 class ReserveEvent {
