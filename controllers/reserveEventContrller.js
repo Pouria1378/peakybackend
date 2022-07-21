@@ -4,7 +4,6 @@ const ReserveEvent = require('../model/reserveEvent')
 
 exports.getReserveEventData = async (req, res, next) => {
     try {
-
         const eventData = await EventType.findOneEvent(req.body)
 
         if (Object.keys(eventData || {}).length === 0) {
