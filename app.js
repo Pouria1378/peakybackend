@@ -37,3 +37,6 @@ mongoConnect((client) => {
         console.log(`Server running on port ${process.env.PORT || 8000}`);
     });
 })
+
+// Export the Express API
+module.exports = app;
